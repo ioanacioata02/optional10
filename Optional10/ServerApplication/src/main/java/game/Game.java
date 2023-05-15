@@ -1,6 +1,7 @@
 package game;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class Game {
     private Board board = new Board();
@@ -8,12 +9,12 @@ public class Game {
     public Game() {
     }
 
-    public void addPlayer(Player player){ //player == null ??? isAvailable
+    public void addPlayer(Player player){
         if(players[0] == null) {
             player.setColor(-1);
             player.setGame(this);
             players[0] = player;
-            // anunta-l ca mai are de asteptat
+            player.notify("You have to wait for another player to join.");
         }
         else {
             player.setColor(1);
@@ -23,7 +24,10 @@ public class Game {
         }
     }
     private void startGame(){
-        // notifica jucatorii
+        int currentPlayer = new Random().nextInt(2);
+        players[currentPlayer].setActive(true);
+        players[currentPlayer].notify("Game started!\nYour turn!");
+        players[1-currentPlayer].notify("Game started!\nWait for you opponent's move!");
     }
     public boolean isAvailable(){
         return players[0]==null || players[1]==null;
@@ -66,6 +70,8 @@ public class Game {
                 players[1].notify("Move accepted\n"+board.display());
                 players[0].notify("Your opponent's move is: " + x + " " + y+"\n"+board.display());
             }
+            players[0].changeTurn();
+            players[1].changeTurn();
         }
         else{
             // anunta doar jucatorul actual
