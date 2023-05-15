@@ -52,7 +52,7 @@ public class ClientThread extends Thread {
     }
 
 
-    private void processRequest(String request) {
+    private void processRequest(String request) throws IOException {
         if (request.equals("create game")) {
             synchronized (gameServer.games) {
                 gameServer.addGame(new Game());

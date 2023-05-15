@@ -34,7 +34,7 @@ public class Player {
         this.color = color;
     }
 
-    public void submitMove(int x, int y) {
+    public void submitMove(int x, int y) throws IOException {
         game.submitMove(x, y, this);
     }
 
@@ -54,13 +54,10 @@ public class Player {
         this.game = game;
     }
 
-    public void notify(String message) {
-        try (PrintWriter out = new PrintWriter(socket.getOutputStream())) {
-            out.println(message);
-            out.flush();
-        } catch (IOException ex) {
-            System.err.println("Communication error... " + ex);
-        }
+    public void notify(String message) throws IOException {
+        PrintWriter out = new PrintWriter(socket.getOutputStream());
+        out.println(message);
+        out.flush();
     }
 
     public void setActive(boolean active) {

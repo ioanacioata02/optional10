@@ -1,5 +1,6 @@
 package game;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -9,7 +10,7 @@ public class Game {
     public Game() {
     }
 
-    public void addPlayer(Player player){
+    public void addPlayer(Player player) throws IOException {
         if(players[0] == null) {
             player.setColor(-1);
             player.setGame(this);
@@ -22,7 +23,7 @@ public class Game {
             startGame();
         }
     }
-    private void startGame(){
+    private void startGame() throws IOException {
         int currentPlayer = new Random().nextInt(2);
         players[currentPlayer].setActive(true);
         players[1-currentPlayer].setActive(false);
@@ -42,7 +43,7 @@ public class Game {
         Arrays.stream(players).forEach(player -> player = null);
     }
 
-    public void submitMove(int x, int y, Player player){
+    public void submitMove(int x, int y, Player player) throws IOException {
         boolean result = board.submitMove(x, y, player.getColor());
         if(result){
             //verificam daca niciunul din jucatori nu a facut miscarea castigatoare
