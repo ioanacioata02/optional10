@@ -17,7 +17,7 @@ public class GameServer {
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(PORT);
-            serverSocket.setSoTimeout(3000); // 5 sec
+            serverSocket.setSoTimeout(3000); // 3 sec
             while (running) {
                 Socket socket;
                 try {
@@ -43,7 +43,6 @@ public class GameServer {
 
     public static void setRunning(boolean running) {
         GameServer.running = running;
-        System.out.println("S-a facut si asta");
     }
 
     public static boolean isRunning() {
