@@ -64,12 +64,15 @@ public class Board {
         }
         return false;
     }
-    public void display() {
+    public String display() {
+
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 14; i++) {
             for (int j = 0; j < 14; j++)
-                System.out.print(board[i][j] + " ");
-            System.out.println("");
+        sb.append(board[i][j]).append(" ");
+        sb.append("\n");
         }
+        return sb.toString();
     }
 
 }

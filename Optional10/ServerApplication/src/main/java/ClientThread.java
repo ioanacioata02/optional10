@@ -75,8 +75,7 @@ public class ClientThread extends Thread {
             }
             if (game == null)
                 return "no available game. try to create one";
-            else
-                return "joined game";
+
         }
 
         //submit move

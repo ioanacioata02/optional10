@@ -41,14 +41,32 @@ public class Game {
     public void submitMove(int x, int y, Player player){
         boolean result = board.submitMove(x, y, player.getColor());
         if(result){
+            //verificam daca niciunul din jucatori nu a facut miscarea castigatoare
+            if(board.checkWin(players[0].getColor()))
+            {
+                players[0].notify("Congratulations!You won!");
+                players[1].notify("You lost!Try again.");
+                players[0].setGame(null);
+                players[1].setGame(null);
+                return;
+            }
+
+            if(board.checkWin(players[1].getColor()))
+            {
+                players[1].notify("Congratulations!You won!");
+                players[0].notify("You lost!Try again.");
+                players[0].setGame(null);
+                players[1].setGame(null);
+                return;
+            }
             // anunta ambii jucatori de mutare
             if(players[0] == player) {
-                players[0].notify("Move accepted");
-                players[1].notify("Your opponent's move is: " + x + " " + y);
+                players[0].notify("Move accepted\n"+board.display());
+                players[1].notify("Your opponent's move is: " + x + " " + y+"\n"+board.display());
             }
             else{
-                players[1].notify("Move accepted");
-                players[0].notify("Your opponent's move is: " + x + " " + y);
+                players[1].notify("Move accepted\n"+board.display());
+                players[0].notify("Your opponent's move is: " + x + " " + y+"\n"+board.display());
             }
         }
         else{
