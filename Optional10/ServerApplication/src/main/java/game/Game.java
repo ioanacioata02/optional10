@@ -39,12 +39,21 @@ public class Game {
     }
 
     public void submitMove(int x, int y, Player player){
-        boolean restult = board.submitMove(x, y, player.getColor());
-        if(restult){
+        boolean result = board.submitMove(x, y, player.getColor());
+        if(result){
             // anunta ambii jucatori de mutare
+            if(players[0] == player) {
+                players[0].notify("Move accepted");
+                players[1].notify("Your opponent's move is: " + x + " " + y);
+            }
+            else{
+                players[1].notify("Move accepted");
+                players[0].notify("Your opponent's move is: " + x + " " + y);
+            }
         }
         else{
             // anunta doar jucatorul actual
+            player.notify("Invalid move. Try again!");
         }
     }
 

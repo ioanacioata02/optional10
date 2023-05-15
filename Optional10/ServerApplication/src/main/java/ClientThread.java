@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-class ClientThread extends Thread {
+public class ClientThread extends Thread {
     private Player player;
     private GameServer gameServer;
     private boolean running = true;
@@ -65,7 +65,7 @@ class ClientThread extends Thread {
         }
 
         if (request.equals("join game")) {
-            if(player.inGame()) // ceva nu e in regula aici
+            if(player.inGame())
                 return "Already joined a game";
             Game game;
             synchronized (gameServer.games) {
@@ -80,6 +80,7 @@ class ClientThread extends Thread {
         }
 
         //submit move
+        
 
         // leave game?
         return "Comanda invalida";

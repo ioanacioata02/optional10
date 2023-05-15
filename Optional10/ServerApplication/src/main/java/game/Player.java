@@ -1,5 +1,9 @@
 package game;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Player {
@@ -28,15 +32,15 @@ public class Player {
         this.color = color;
     }
 
-    public void submitMove(int x, int y){
-
+    public void submitMove(int x, int y) {
+        game.submitMove(x, y, this);
     }
 
     public Socket getSocket() {
         return socket;
     }
 
-    public boolean inGame(){
+    public boolean inGame() {
         return (this.game != null);
     }
 
@@ -46,5 +50,14 @@ public class Player {
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public void notify(String message) {
+        try (PrintWriter out = new PrintWriter(socket.getOutputStream())) {
+            out.println(message);
+            out.flush();
+        } catch (IOException ex) {
+            System.err.println("Communication error... " + ex);
+        }
     }
 }
