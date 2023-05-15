@@ -46,8 +46,7 @@ public class Game {
             {
                 players[0].notify("Congratulations!You won!");
                 players[1].notify("You lost!Try again.");
-                players[0].setGame(null);
-                players[1].setGame(null);
+               resetGame();
                 return;
             }
 
@@ -55,8 +54,7 @@ public class Game {
             {
                 players[1].notify("Congratulations!You won!");
                 players[0].notify("You lost!Try again.");
-                players[0].setGame(null);
-                players[1].setGame(null);
+               resetGame();
                 return;
             }
             // anunta ambii jucatori de mutare
