@@ -79,7 +79,6 @@ public class ClientThread extends Thread {
         }
 
         //submit move
-        
 
         // leave game?
         return "Comanda invalida";
