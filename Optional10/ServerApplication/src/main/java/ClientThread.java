@@ -30,12 +30,12 @@ public class ClientThread extends Thread {
                     GameServer.setRunning(false);
                     running = false;
                 } else {
-                    raspuns = processRequest(request);
+                    processRequest(request);
                     //raspuns = "Server received the request ... " + request;
                 }
                 // Send the response to the oputput stream: server → client
-                out.println(raspuns);
-                out.flush();
+                //out.println(raspuns);
+                //out.flush();
             }
         } catch (IOException e) {
             System.err.println("Communication error... " + e);
@@ -53,17 +53,17 @@ public class ClientThread extends Thread {
     }
 
 
-    private String processRequest(String request) {
+    private void processRequest(String request) {
         if (request.equals("create game")) {
             synchronized (gameServer.games) {
                 gameServer.addGame(new Game());
             }
-            return "new Game created";
+            player.notify("new Game created");
         }
 
-        if (request.equals("join game")) {
+        else if (request.equals("join game")) {
             if(player.inGame())
-                return "Already joined a game";
+                player.notify("Already joined a game");
             Game game;
             synchronized (gameServer.games) {
                 game = gameServer.getFirstAvailableGame();
@@ -71,12 +71,12 @@ public class ClientThread extends Thread {
                     game.addPlayer(player);
             }
             if (game == null)
-                return "no available game. try to create one";
+                player.notify("no available game. try to create one");
 
         }
-        if (request.equals("submit move")) {
+        else if (request.equals("submit move")) {
             if(!player.inGame())
-                return "Join a game first!";
+                player.notify("Join a game first!");
             else
             {player.notify("Give a position:");
                 try {
@@ -90,12 +90,7 @@ public class ClientThread extends Thread {
                 }
             }
             }
-
-
-
-        //submit move
-
-        // leave game?
-        return "Comanda invalida";
+        else
+            player.notify("Comanda invalida");
     }
 }

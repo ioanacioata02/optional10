@@ -14,7 +14,6 @@ public class Game {
             player.setColor(-1);
             player.setGame(this);
             players[0] = player;
-            player.notify("You have to wait for another player to join.");
         }
         else {
             player.setColor(1);
@@ -26,6 +25,7 @@ public class Game {
     private void startGame(){
         int currentPlayer = new Random().nextInt(2);
         players[currentPlayer].setActive(true);
+        players[1-currentPlayer].setActive(false);
         players[currentPlayer].notify("Game started!\nYour turn!");
         players[1-currentPlayer].notify("Game started!\nWait for you opponent's move!");
     }
