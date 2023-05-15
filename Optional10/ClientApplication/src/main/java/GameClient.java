@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.SocketException;
@@ -31,6 +28,14 @@ public class GameClient {
                 if (!line.isEmpty()) {
                     String response = in.readLine();
                     System.out.println(response);
+                    if(response.equals("Give position:"))
+                    {
+                        int x=scanner.nextInt();
+                        int y=scanner.nextInt();
+                        DataOutputStream out2=new DataOutputStream(socket.getOutputStream());
+                        out2.writeInt(x);
+                        out2.writeInt(y);
+                    }
                 }
             }
         } catch (UnknownHostException e) {
