@@ -18,24 +18,20 @@ class ClientThread extends Thread {
     }
 
     public void run() {
-        try {
-            // Get the request from the input stream: client → server
-            BufferedReader in = new BufferedReader(new InputStreamReader(player.getSocket().getInputStream()));
-            PrintWriter out = new PrintWriter(player.getSocket().getOutputStream());
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(player.getSocket().getInputStream()));
+             PrintWriter out = new PrintWriter(player.getSocket().getOutputStream())){
             while (running) {
                 while (!in.ready()){
 
                 }
                 String request = in.readLine();
                 String raspuns = null;
-                System.out.println(request);
                 if (request.equals("exit"))
                     running = false;
                 else if (request.equals("stop") || !GameServer.isRunning()) {
                     raspuns = "Server stopped";
                     GameServer.setRunning(false);
                     running = false;
-                    //System.out.println("am setat astea");
                 } else {
                     raspuns = processRequest(request);
                     //raspuns = "Server received the request ... " + request;
@@ -57,6 +53,7 @@ class ClientThread extends Thread {
         } catch (IOException e) {
             System.err.println(e);
         }
+        System.out.println("Gata thread");
     }
 
 

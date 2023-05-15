@@ -16,32 +16,32 @@ public class GameClient {
         String serverAddress = "127.0.0.1"; // The server's IP address
         int PORT = 8100; // The server's port
         Scanner scanner = new Scanner(System.in);
-        while (running) {
-            String line = scanner.nextLine();
-            line = line.trim();
-            if (line.equals("exit"))
-                running = false;
-            try (
-                    Socket socket = new Socket(serverAddress, PORT);
-                    PrintWriter out =
-                            new PrintWriter(socket.getOutputStream(), true);
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(socket.getInputStream()))) {
+        try (
+                Socket socket = new Socket(serverAddress, PORT);
+                PrintWriter out =
+                        new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(socket.getInputStream()))) {
+            while (running) {
+                String line = scanner.nextLine();
+                line = line.trim();
+                if (line.equals("exit"))
+                    running = false;
                 out.println(line);
                 if (!line.isEmpty()) {
                     String response = in.readLine();
                     System.out.println(response);
                 }
-            } catch (UnknownHostException e) {
-                System.err.println("No server listening... " + e);
-                running = false;
-            } catch (ConnectException e) {
-                System.err.println(e);
-                running = false;
-            } catch (SocketException e) {
-                System.err.println(e);
-                running = false;
             }
+        } catch (UnknownHostException e) {
+            System.err.println("No server listening... " + e);
+            running = false;
+        } catch (ConnectException e) {
+            System.err.println(e);
+            running = false;
+        } catch (SocketException e) {
+            System.err.println(e);
+            running = false;
         }
     }
 }

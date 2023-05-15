@@ -5,7 +5,7 @@ import java.net.Socket;
 public class Player {
     private int color; // 1 sau -1
     private Socket socket;
-    private Game game;
+    private Game game = null;
 
     public Player(int color) {
         this.color = color;
@@ -37,7 +37,7 @@ public class Player {
     }
 
     public boolean inGame(){
-        return !(game == null);
+        return (this.game != null);
     }
 
     public Game getGame() {

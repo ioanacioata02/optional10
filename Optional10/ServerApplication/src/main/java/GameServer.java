@@ -17,15 +17,15 @@ public class GameServer {
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(PORT);
-            serverSocket.setSoTimeout(5000); // 5 sec
+            serverSocket.setSoTimeout(3000); // 5 sec
             while (running) {
-                System.out.println("Waiting for a client ...");
                 Socket socket;
                 try {
                     socket = serverSocket.accept();
                 } catch (SocketTimeoutException e) {
                     continue;
                 }
+                System.out.println("Client accepted ...");
                 // Execute the client's request in a new thread
                 if(running)
                     new ClientThread(socket, this).start();
@@ -43,6 +43,7 @@ public class GameServer {
 
     public static void setRunning(boolean running) {
         GameServer.running = running;
+        System.out.println("S-a facut si asta");
     }
 
     public static boolean isRunning() {
