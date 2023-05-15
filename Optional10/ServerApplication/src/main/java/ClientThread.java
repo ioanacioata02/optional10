@@ -22,11 +22,10 @@ public class ClientThread extends Thread {
 
                 }
                 String request = in.readLine();
-                String raspuns = null;
                 if (request.equals("exit"))
                     running = false;
                 else if (request.equals("stop") || !GameServer.isRunning()) {
-                    raspuns = "Server stopped";
+                    player.notify("Server stopped");
                     GameServer.setRunning(false);
                     running = false;
                 } else {
