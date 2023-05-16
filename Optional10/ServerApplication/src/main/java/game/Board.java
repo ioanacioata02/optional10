@@ -73,8 +73,8 @@ public class Board {
     public String display() {
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 14; i++) {
-            for (int j = 0; j < 14; j++)
+        for (int i = 0; i <= 14; i++) {
+            for (int j = 0; j <= 14; j++)
         sb.append(board[i][j]).append(" ");
         sb.append("\n");
         }
