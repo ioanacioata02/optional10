@@ -41,8 +41,10 @@ public class Game {
 
     public void resetGame(){
         board = new Board();
-        Arrays.stream(players).forEach(player -> {player.setGame(null);
-            player = null;});
+        players[0].setGame(null);
+        players[0] = null;
+        players[1].setGame(null);
+        players[1] = null;
     }
 
     public void submitMove(int x, int y, Player player) throws IOException {
