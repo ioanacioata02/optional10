@@ -47,7 +47,7 @@ public class Game {
         players[1] = null;
     }
 
-    public void submitMove(int x, int y, Player player) throws IOException {
+    public boolean submitMove(int x, int y, Player player) throws IOException {
         boolean result = board.submitMove(x, y, player.getColor());
         if(result){
             //verificam daca niciunul din jucatori nu a facut miscarea castigatoare
@@ -56,7 +56,7 @@ public class Game {
                 players[0].notify("Congratulations!You won!");
                 players[1].notify("You lost!Try again.");
                resetGame();
-                return;
+                return true;
             }
 
             if(board.checkWin(players[1].getColor()))
@@ -64,23 +64,29 @@ public class Game {
                 players[1].notify("Congratulations!You won!");
                 players[0].notify("You lost!Try again.");
                resetGame();
-                return;
+                return true;
             }
             // anunta ambii jucatori de mutare
             if(players[0] == player) {
                 players[0].notify("Move accepted\n"+board.display());
                 players[1].notify("Your opponent's move is: " + x + " " + y+"\n"+board.display());
+                players[0].changeTurn();
+                players[1].changeTurn();
+                return true;
             }
             else{
                 players[1].notify("Move accepted\n"+board.display());
                 players[0].notify("Your opponent's move is: " + x + " " + y+"\n"+board.display());
+                players[0].changeTurn();
+                players[1].changeTurn();
+                return true;
             }
-            players[0].changeTurn();
-            players[1].changeTurn();
+
         }
         else{
             // anunta doar jucatorul actual
             player.notify("Invalid move. Try again!");
+            return false;
         }
     }
 
