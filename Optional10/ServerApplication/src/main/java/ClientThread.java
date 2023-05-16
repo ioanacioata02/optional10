@@ -64,8 +64,10 @@ public class ClientThread extends Thread {
         }
 
         else if (request.equals("join game")) {
-            if(player.inGame())
+            if(player.inGame()) {
                 player.notify("Already joined a game");
+                return;
+            }
             Game game;
             synchronized (gameServer.games) {
                 game = gameServer.getFirstAvailableGame();
