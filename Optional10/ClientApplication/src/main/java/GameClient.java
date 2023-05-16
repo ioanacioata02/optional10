@@ -10,7 +10,7 @@ public class GameClient {
     private boolean running = true;
 
     public void run() throws IOException {
-        String serverAddress = "127.0.0.1"; // The server's IP address
+        String serverAddress = "172.20.10.6"; // The server's IP address
         int PORT = 8100; // The server's port
         Scanner scanner = new Scanner(System.in);
         try (
