@@ -1,6 +1,7 @@
 import game.Game;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -16,7 +17,8 @@ public class GameServer {
     public GameServer() throws IOException {
         ServerSocket serverSocket = null;
         try {
-            serverSocket = new ServerSocket(PORT);
+           serverSocket = new ServerSocket(PORT, 0, InetAddress.getByName("172.20.10.6"));
+
             serverSocket.setSoTimeout(3000); // 3 sec
             while (running) {
                 Socket socket;
