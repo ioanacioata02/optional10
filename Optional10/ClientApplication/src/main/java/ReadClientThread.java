@@ -20,7 +20,7 @@ public class ReadClientThread extends Thread {
                 response = in.readLine();
             } catch (IOException e) {
                 System.err.println(e);
-                //gameClient.setRunning(false);
+                gameClient.setRunning(false);
             }
             System.out.println(response);
         }

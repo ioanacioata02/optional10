@@ -17,7 +17,7 @@ public class GameServer {
     public GameServer() throws IOException {
         ServerSocket serverSocket = null;
         try {
-           serverSocket = new ServerSocket(PORT, 0, InetAddress.getByName("172.20.10.6"));
+           serverSocket = new ServerSocket(PORT, 0, InetAddress.getByName("192.168.43.68"));
 
             serverSocket.setSoTimeout(3000); // 3 sec
             while (running) {
