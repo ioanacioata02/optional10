@@ -27,7 +27,6 @@ public class GameClient {
                     running = false;
                 if (line.equals("stop"))
                     running = false;
-                System.out.println(line);
                 out.println(line);
                 out.flush();
             }
