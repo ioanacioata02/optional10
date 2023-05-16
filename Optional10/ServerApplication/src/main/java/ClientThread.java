@@ -3,6 +3,8 @@ import game.Player;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ClientThread extends Thread {
     private Player player;
@@ -22,6 +24,7 @@ public class ClientThread extends Thread {
 
                 }
                 String request = in.readLine();
+                System.out.println("Received " + request);
                 if (request.equals("exit"))
                     running = false;
                 else if (request.equals("stop") || !GameServer.isRunning()) {
@@ -73,20 +76,23 @@ public class ClientThread extends Thread {
                 player.notify("no available game. try to create one");
 
         }
-        else if (request.equals("submit move")) {
+        else if (request.startsWith("submit move")) {
             if(!player.inGame())
                 player.notify("Join a game first!");
             else
-            {player.notify("Give a position:");
-                try {
-                    DataInputStream input= new DataInputStream(player.getSocket().getInputStream());
-                    int x,y;
-                    x=input.readInt();
-                    y=input.readInt();
-                    player.submitMove(x,y);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+            {
+                Pattern pattern = Pattern.compile("\\d+");
+                Matcher matcher = pattern.matcher(request);
+                int k = 0;
+                int[] coord = new int[2];
+                while (matcher.find()) {
+                    if(k == 2) {
+                        player.notify("Comanda invalida");
+                        return;
+                    }
+                    coord[k] = Integer.parseInt(matcher.group());
                 }
+                player.submitMove(coord[0], coord[1]);
             }
             }
         else

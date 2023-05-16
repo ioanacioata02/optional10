@@ -55,6 +55,7 @@ public class Player {
     }
 
     public void notify(String message) throws IOException {
+        System.out.println(socket + " " + message);
         PrintWriter out = new PrintWriter(socket.getOutputStream());
         out.println(message);
         out.flush();

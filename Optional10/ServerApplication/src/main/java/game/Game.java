@@ -15,6 +15,7 @@ public class Game {
             player.setColor(-1);
             player.setGame(this);
             players[0] = player;
+            player.notify("You have to wait for another player to join....");
         }
         else {
             player.setColor(1);

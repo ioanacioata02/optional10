@@ -15,29 +15,21 @@ public class GameClient {
         Scanner scanner = new Scanner(System.in);
         try (
                 Socket socket = new Socket(serverAddress, PORT);
-                PrintWriter out =
-                        new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(socket.getInputStream()))) {
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                ) {
+            ReadClientThread readClientThread = new ReadClientThread(this, in);
+            readClientThread.start();
             while (running) {
                 String line = scanner.nextLine();
                 line = line.trim();
                 if (line.equals("exit"))
                     running = false;
+                System.out.println(line);
                 out.println(line);
-                if (!line.isEmpty()) {
-                    String response = in.readLine();
-                    System.out.println(response);
-                    if(response.equals("Give position:"))
-                    {
-                        int x=scanner.nextInt();
-                        int y=scanner.nextInt();
-                        DataOutputStream out2=new DataOutputStream(socket.getOutputStream());
-                        out2.writeInt(x);
-                        out2.writeInt(y);
-                    }
-                }
+                out.flush();
             }
+
         } catch (UnknownHostException e) {
             System.err.println("No server listening... " + e);
             running = false;
@@ -48,5 +40,13 @@ public class GameClient {
             System.err.println(e);
             running = false;
         }
+    }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
     }
 }
