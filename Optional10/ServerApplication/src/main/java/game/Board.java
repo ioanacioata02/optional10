@@ -15,6 +15,7 @@ public class Board {
     }
 
     public boolean checkWin(int player) {
+        System.out.println("verific daca n a castigat playerul cu culoarea"+player);
         if (checkHorizontal(player) || checkVertical(player) || checkDiagonal(player))
             return true;
         return false;
@@ -24,12 +25,15 @@ public class Board {
     public boolean checkHorizontal(int val) {
         for (int i = 0; i < 14; i++) {
             int nr = 0;
-            for (int j = 0; j < 14; j++)
-                if (board[i][j] ==val)
+            for (int j = 0; j < 14; j++) {
+                if (board[i][j] == val) {
                     nr++;
-                else nr = 0;
-            if (nr == 5)
-                return true;
+                    System.out.println("am mai gasit una la fel" + nr);
+
+                } else nr = 0;
+                if (nr == 5)
+                    return true;
+            }
         }
         return false;
     }
@@ -37,12 +41,13 @@ public class Board {
     public boolean checkVertical(int val) {
         for (int j = 0; j < 14; j++) {
             int nr = 0;
-            for (int i = 0; i < 14; i++)
-                if (board[i][j] ==val)
+            for (int i = 0; i < 14; i++) {
+                if (board[i][j] == val)
                     nr++;
                 else nr = 0;
-            if (nr == 5)
-                return true;
+                if (nr == 5)
+                    return true;
+            }
         }
         return false;
     }
@@ -52,13 +57,14 @@ public class Board {
             for (int j = 0; j <= 10; j++) {
               int nr=0;
                 for (int k = 0; k < 5; k++) {
-                    if (board[i+k][j+k] == value)
+                    if (board[i + k][j + k] == value)
                         nr++;
 
-                    else nr=0;
-                }
-                if (nr==5) {
-                    return true;
+                    else nr = 0;
+
+                    if (nr == 5)
+                        return true;
+
                 }
             }
         }
