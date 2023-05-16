@@ -25,6 +25,8 @@ public class GameClient {
                 line = line.trim();
                 if (line.equals("exit"))
                     running = false;
+                if (line.equals("stop"))
+                    running = false;
                 System.out.println(line);
                 out.println(line);
                 out.flush();
