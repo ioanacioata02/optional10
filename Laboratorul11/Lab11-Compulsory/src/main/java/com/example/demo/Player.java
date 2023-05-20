@@ -1,6 +1,8 @@
 package com.example.demo;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,30 +12,20 @@ import java.net.Socket;
 public class Player {
     private static int nextAvailableId = 1;
     private int color; // 1 sau -1
-    private Socket socket;
+    @JsonIgnore
+    private Socket socket = null;
     private Game game = null;
     private int id;
     private String name = null;
-    private boolean active;
+    private boolean active = false;
+    public Player() {
+    }
+
 
     public Player(int color, String name) {
         this.color = color;
         this.name = name;
         this.id = nextAvailableId++;
-        System.out.println(name);
-    }
-
-    public Player(int color, String name, boolean active) {
-        this.color = color;
-        this.game = game;
-        this.id = nextAvailableId++;
-        this.name = name;
-        this.active = active;
-    }
-
-    public Player(int color, Game game) {
-        this.color = color;
-        this.game = game;
     }
 
     public int getColor() {
@@ -122,7 +114,8 @@ public class Player {
                 ", active=" + active +
                 '}';
     }
-    public static void incrementNr(){
-        nextAvailableId++;
+
+    public static int incrementNr(){
+        return nextAvailableId++;
     }
 }

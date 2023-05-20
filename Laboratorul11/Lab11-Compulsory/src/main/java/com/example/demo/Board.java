@@ -81,4 +81,7 @@ public class Board {
         return sb.toString();
     }
 
+    public int[][] getBoard() {
+        return board;
+    }
 }
