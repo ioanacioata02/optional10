@@ -23,6 +23,14 @@ public class Player {
         System.out.println(name);
     }
 
+    public Player(int color, String name, boolean active) {
+        this.color = color;
+        this.game = game;
+        this.id = nextAvailableId++;
+        this.name = name;
+        this.active = active;
+    }
+
     public Player(int color, Game game) {
         this.color = color;
         this.game = game;
@@ -113,5 +121,8 @@ public class Player {
                 ", name='" + name + '\'' +
                 ", active=" + active +
                 '}';
+    }
+    public static void incrementNr(){
+        nextAvailableId++;
     }
 }

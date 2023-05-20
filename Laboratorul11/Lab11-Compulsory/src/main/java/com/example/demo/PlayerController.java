@@ -1,9 +1,9 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ public class PlayerController {
             players.add(new Player(-1, "Ioana"));
             players.forEach(System.out::println);
         }
+        // get
         @GetMapping
         public List<Player> getPlayers() {
             return players;
@@ -33,4 +34,17 @@ public class PlayerController {
         }
 
 
+        // post
+        @PostMapping
+        public int createPlayer(@RequestParam int color, @RequestParam String name) {
+            Player player = new Player(color, name);
+            players.add(player);
+            return player.getId();
+        }
+        @PostMapping(value = "/obj", consumes="application/json")
+        public ResponseEntity<String>
+        createProduct(@RequestBody Player player) {
+            players.add(player);
+            return new ResponseEntity<>("Player created successfully", HttpStatus.CREATED);
+    }
 }
