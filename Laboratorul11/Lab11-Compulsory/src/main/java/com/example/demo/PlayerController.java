@@ -14,8 +14,9 @@ public class PlayerController {
 
         private final List<Player> players = new ArrayList<>();
         public PlayerController() {
-           players.add(new Player(1));
-            players.add(new Player(1));
+           players.add(new Player(1, "Raluca"));
+            players.add(new Player(-1, "Ioana"));
+            players.forEach(System.out::println);
         }
         @GetMapping
         public List<Player> getPlayers() {

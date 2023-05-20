@@ -8,18 +8,19 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Player {
+    private static int nextAvailableId = 1;
     private int color; // 1 sau -1
     private Socket socket;
     private Game game = null;
-  private int id;
+    private int id;
+    private String name = null;
     private boolean active;
 
-    public Player(int color) {
+    public Player(int color, String name) {
         this.color = color;
-    }
-
-    public Player(Socket socket) {
-        this.socket = socket;
+        this.name = name;
+        this.id = nextAvailableId++;
+        System.out.println(name);
     }
 
     public Player(int color, Game game) {
@@ -84,5 +85,33 @@ public class Player {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "color=" + color +
+                ", socket=" + socket +
+                ", game=" + game +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", active=" + active +
+                '}';
     }
 }
