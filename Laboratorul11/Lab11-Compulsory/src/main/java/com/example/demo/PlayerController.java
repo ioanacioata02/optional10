@@ -12,7 +12,6 @@ import java.util.List;
 @RequestMapping("/players")
 public class PlayerController {
 
-
         private final List<Player> players = new ArrayList<>();
         public PlayerController() {
            players.add(new Player(1));
